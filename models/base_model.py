@@ -3,6 +3,7 @@
 
 import uuid
 from datetime import datetime
+from models.__init__ import storage
 
 time_format = '%Y-%m-%dT%H:%M:%S.%f'
 
@@ -35,6 +36,8 @@ class BaseModel:
     def save(self):
         """updates updated_at to current time"""
         self.updated_at = datetime.now()
+        storage.save()
+        storage.new(self)
 
     def to_dict(self):
         """returns dictionary containing all keys and values"""
