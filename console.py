@@ -96,7 +96,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 obj = storage.all()[obj_key]
                 attr_name = args[2]
-                attr_value = agrs[3]
+                attr_value = args[3]
                 if hasattr(obj, attr_name):
                     try:
                         attr_value = eval(attr_value)
