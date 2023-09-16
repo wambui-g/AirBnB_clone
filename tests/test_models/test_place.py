@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Tests the Place class"""
+"""Tests Place class"""
 
 import unittest
 from models.place import Place
@@ -7,10 +7,10 @@ from models.base_model import BaseModel
 
 
 class TestPlace(unittest.TestCase):
-    """Tests the Place class"""
+    """Tests Place class"""
 
     def test_is_subclass(self):
-        """Test that Place is a subclass of BaseModel"""
+        """Tests if Place is a subclass of BaseModel"""
         place = Place()
         self.assertIsInstance(place, BaseModel)
         self.assertTrue(hasattr(place, "id"))
@@ -18,7 +18,7 @@ class TestPlace(unittest.TestCase):
         self.assertTrue(hasattr(place, "updated_at"))
 
     def test_init(self):
-        """Tests the init method"""
+        """Tests init"""
         place = Place()
         self.assertIs(type(place.city_id), str)
         self.assertIs(type(place.user_id), str)

@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-"""Tests the Review class"""
+"""Tests Review class"""
 import unittest
 from models.review import Review
 from models.base_model import BaseModel
 
 
 class TestReview(unittest.TestCase):
-    """Tests the Review class"""
+    """Tests Review class"""
 
     def test_is_subclass(self):
         """Test if Review is a subclass of BaseModel"""
@@ -17,7 +17,7 @@ class TestReview(unittest.TestCase):
         self.assertTrue(hasattr(review, "updated_at"))
 
     def test_init(self):
-        """Tests the init method"""
+        """Tests init method"""
         review = Review()
         self.assertIs(type(review.place_id), str)
         self.assertIs(type(review.user_id), str)

@@ -1,15 +1,15 @@
 #!/usr/bin/python3
-"""Tests the state class"""
+"""Tests State class"""
 import unittest
 from models.state import State
 from models.base_model import BaseModel
 
 
 class TestState(unittest.TestCase):
-    """Tests the state class"""
+    """Tests state class"""
 
     def test_is_subclass(self):
-        """Test that State is a subclass of BaseModel"""
+        """Test if State is a subclass of BaseModel"""
         state = State()
         self.assertIsInstance(state, BaseModel)
         self.assertTrue(hasattr(state, "id"))
@@ -17,7 +17,7 @@ class TestState(unittest.TestCase):
         self.assertTrue(hasattr(state, "updated_at"))
 
     def test_init(self):
-        """Tests the init method"""
+        """Tests init method"""
         state = State()
         self.assertIs(type(state.name), str)
         self.assertEqual(state.name, "")

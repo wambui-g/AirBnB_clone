@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-"""Tests the Amenity class"""
+"""Tests for the Amenity class"""
 import unittest
 from models.amenity import Amenity
 from models.base_model import BaseModel
 
 
 class TestAmenity(unittest.TestCase):
-    """Tests the Amenity class"""
+    """Tests for Amenity class"""
 
     def test_is_subclass(self):
         """Test that Amenity is a subclass of BaseModel"""
@@ -17,8 +17,7 @@ class TestAmenity(unittest.TestCase):
         self.assertTrue(hasattr(amenity, "updated_at"))
 
     def test_init(self):
-        """Tests the initialization of the Amenity class"""
-
+        """Tests initialization of Amenity class"""
         amenity = Amenity()
         self.assertIsInstance(amenity, Amenity)
         self.assertIs(type(amenity), Amenity)

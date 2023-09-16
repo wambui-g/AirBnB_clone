@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Unittest for User class"""
+"""Tests for User class"""
 
 import datetime
 import unittest
@@ -9,9 +9,9 @@ from models.base_model import BaseModel
 
 
 class TestUser(unittest.TestCase):
-    """Test cases for User"""
+    """Tests User"""
     def test_is_subclass(self):
-        """Test that User is a subclass of BaseModel"""
+        """Test if User is a subclass of BaseModel"""
         user = User()
         self.assertIsInstance(user, BaseModel)
         self.assertTrue(hasattr(user, "id"))
@@ -19,7 +19,7 @@ class TestUser(unittest.TestCase):
         self.assertTrue(hasattr(user, "updated_at"))
 
     def test_user(self):
-        """Test for User class"""
+        """Tests for User"""
         u = User()
         self.assertIsInstance(u, User)
         self.assertTrue(hasattr(u, "email"))
