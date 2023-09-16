@@ -2,8 +2,8 @@
 """module to define basemodel class"""
 
 import uuid
+import models
 from datetime import datetime
-from models.engine.file_storage import storage
 
 time_format = '%Y-%m-%dT%H:%M:%S.%f'
 
@@ -18,7 +18,7 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key == "__class__":
                     continue
-                elif key == "created_at" or key == "Updated_at":
+                elif key == "created_at" or key == "updated_at":
                     setattr(self, key, datetime.strptime
                             (value, time_format))
                 else:
@@ -26,7 +26,8 @@ class BaseModel:
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
-            self.updated_at = self.created_at
+            self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def __str__(self):
         """returns string representation of class"""
@@ -35,14 +36,14 @@ class BaseModel:
 
     def save(self):
         """updates updated_at to current time"""
+        from models import storage
         self.updated_at = datetime.now()
         storage.save()
-        storage.new(self)
 
     def to_dict(self):
         """returns dictionary containing all keys and values"""
         obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = self.__class__.__name__
         obj_dict['created_at'] = self.created_at.strftime(time_format)
-        obj_dict['updated_at'] = self.updated_at.strftime(time_format)
+        obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict

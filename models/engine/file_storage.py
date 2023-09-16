@@ -11,17 +11,20 @@ from models.review import Review
 from models.state import State
 from models.user import User
 
-classes = {
-        "BaseModel": BaseModel, "User": User,
-        "Place": Place, "City": City, "Review": Review,
-        "State": State, "Amenity": Amenity
-        }
-
-
 class FileStorage:
     """filestorage class definition"""
     __file_path = "file.json"
     __objects = {}
+
+    def classes(self):
+        """ returns a dictionary of classes"""
+
+        classes = {
+                "BaseModel": BaseModel, "User": User,
+                "Place": Place, "City": City, "Review": Review,
+                "State": State, "Amenity": Amenity
+                }
+        return classes
 
     def all(self):
         """method that returns the dictionary objects"""
@@ -38,6 +41,7 @@ class FileStorage:
                     in FileStorage.__objects.items()}
         with open(FileStorage.__file_path, 'w', encoding='utf-8') as file:
             json.dump(obj_dict, file)
+        return
 
     def reload(self):
         """deserializes the JSON file"""
@@ -48,7 +52,3 @@ class FileStorage:
                     class_name = value["__class__"]
                     obj = self.classes()[class_name](**value)
                     FileStorage.__objects[key] = obj
-
-
-storage = FileStorage()
-storage.reload()
