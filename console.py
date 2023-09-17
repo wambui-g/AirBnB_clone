@@ -4,8 +4,22 @@
 
 import cmd
 import sys
+import models
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.amenity import Amenity
+
+classes = {
+        "User": User, "BaseModel": BaseModel,
+        "place": Place, "City": City, "State": State,
+        "Amenity": Amenity, "Review": Review
+        }
+
 
 
 class HBNBCommand(cmd.Cmd):
@@ -30,7 +44,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         try:
-            new_instance = BaseModel()
+            new_instance = classes[arg]()
             new_instance.save()
             print(new_instance.id)
         except Exception as e:
@@ -41,11 +55,16 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if not arg:
             print("** class name missing **")
+        elif not args[0].strip() in classes:
+            print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
         else:
-            obj_key = "{}.{}".format(args[0], args[1])
+            obj_key = "{}.{}".format(args[0].strip(), args[1].strip())
+            obj = models.storage.all()
             if obj_key in storage.all():
+                print(obj[obj_key])
+            else:
                 print("** no instance found **")
 
     def do_destroy(self, arg):
@@ -53,12 +72,17 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if not arg:
             print("** class name missing **")
-        elif args[0] not in storage.classes:
+        elif args[0] not in classes:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
         else:
-            print("** no instance found **")
+            obj_key = "{}.{}".format(args[0].strip(), args[1].strip())
+            if obj_key in models.storage.all():
+                del models.storage.all()[obj_key]
+                models.storage.save()
+            else:
+                print("** no instance found **")
 
     def do_all(self, arg):
         """prints all string representations of instances"""
@@ -68,7 +92,7 @@ class HBNBCommand(cmd.Cmd):
             for obj in storage.all().values():
                 obj_list.append(str(obj))
             print(obj_list)
-        elif args[0] not in storage.classes:
+        elif args[0] not in classes:
             print("** class doesn't exist **")
         else:
             for obj in storage.all().values():
@@ -81,29 +105,20 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if not arg:
             print("** class name missing **")
-        elif args[0] not in storage.classes:
+        elif args[0] not in classes:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
+        elif len(args) < 3:
+            print("** attribute name missing **")
+        elif len(args) < 4:
+            print("** value missing **")
         else:
-            obj_key = "{}.{}".format(args[0], args[1])
-            if obj_key not in storage.all():
-                print("** no instance found **")
-            elif len(args) < 3:
-                print("** attribute name missing **")
-            elif len(args) < 4:
-                print("** value missing **")
+            obj_key = "{}.{}".format(args[0].strip(), args[1].strip())
+            if obj_key in storage.all():
+                models.storage.all()[obj_key].__dict__[args[2]] = args[3]
             else:
-                obj = storage.all()[obj_key]
-                attr_name = args[2]
-                attr_value = args[3]
-                if hasattr(obj, attr_name):
-                    try:
-                        attr_value = eval(attr_value)
-                    except ValueError:
-                        pass
-                    setattr(obj, attr_name, attr_value)
-                    obj.save()
+                print("** no instance found **")
 
 
 if __name__ == "__main__":
