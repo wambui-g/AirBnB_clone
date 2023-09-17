@@ -21,7 +21,6 @@ classes = {
         }
 
 
-
 class HBNBCommand(cmd.Cmd):
     """The console"""
     prompt = '(hbnb) '
