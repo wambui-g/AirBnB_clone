@@ -16,7 +16,7 @@ from models.amenity import Amenity
 
 classes = {
         "User": User, "BaseModel": BaseModel,
-        "place": Place, "City": City, "State": State,
+        "Place": Place, "City": City, "State": State,
         "Amenity": Amenity, "Review": Review
         }
 
