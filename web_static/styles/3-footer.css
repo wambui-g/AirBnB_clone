@@ -4,8 +4,6 @@ footer{
   width: 100%;
   text-align: center;
   line-height: 60px;
-  position: absolute;
-  bottom: 0;
   color: black;
   border-top: 1px solid #CCCCCC;
   display: flex;

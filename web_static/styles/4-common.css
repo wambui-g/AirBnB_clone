@@ -8,7 +8,5 @@ body {
 
 .container{
   max-width: 1000px;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  margin-left: 300px; /*not a requirement but added it to match image*/
+  margin: 30px auto;
 }
